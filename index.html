@@ -1,0 +1,772 @@
+<html lang="en"><head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>GIT Basics guide</title>
+    
+    
+	
+    <script id="twitter-wjs" src="//platform.twitter.com/widgets.js"></script><script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script><script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-652147-13']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+      function recordOutboundLink(link, category, action) {
+         _gat._getTrackerByName()._trackEvent(category, action);
+         setTimeout('document.location = "' + link.href + '"', 100);
+      }
+    </script>
+<script type="text/javascript" async="" src="http://git-the-simple-guide.disqus.com/embed.js"></script><link rel="prefetch" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.63860eb743c7d9d2adf0fa435788abe7.css"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.33bc87b2c4f9324203cc85b7dd1d0492.js"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.39ef974e33e97bdc315c595632f05d3c.js"><link rel="prefetch" as="script" href="https://disqus.com/next/config.js"><script async="" id="dsq_recs_scr" src="https://git-the-simple-guide.disqus.com/recommendations.js"></script><link rel="prefetch" as="style" href="https://c.disquscdn.com/next/recommendations/styles/recommendations.10022a97346f1c6e3798931bbd8e4bb5.css"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/recommendations/common.bundle.a59fbd11efae764ccd959d61e4925fee.js"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/recommendations/recommendations.bundle.926bc472e4859a48daa346b4ba2ab4f4.js"><link rel="prefetch" as="script" href="https://disqus.com/next/config.js"><script charset="utf-8" src="https://platform.twitter.com/js/button.06b07097969b3b070809511391362bf4.js"></script><style id="mnetGetCss" type="text/css">/* latin-ext */
+@font-face {
+  font-family: 'Chelsea Market';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/chelseamarket/v13/BCawqZsHqfr89WNP_IApC8tzKChsJg8MKVWl4lw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Chelsea Market';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/chelseamarket/v13/BCawqZsHqfr89WNP_IApC8tzKChiJg8MKVWl.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style><style id="mnetGetCss" type="text/css">/*! normalize.css 2011-08-31T22:02 UTC · http://github.com/necolas/normalize.css */
+
+/* =============================================================================
+   HTML5 display definitions
+   ========================================================================== */
+
+/*
+ * Corrects block display not defined in IE6/7/8/9 & FF3
+ */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+    display: block;
+}
+
+/*
+ * Corrects inline-block display not defined in IE6/7/8/9 & FF3
+ */
+
+audio,
+canvas,
+video {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+/*
+ * Prevents modern browsers from displaying 'audio' without controls
+ */
+
+audio:not([controls]) {
+    display: none;
+}
+
+/*
+ * Addresses styling for 'hidden' attribute not present in IE7/8/9, FF3, S4
+ * Known issue: no IE6 support
+ */
+
+[hidden] {
+    display: none;
+}
+
+
+/* =============================================================================
+   Base
+   ========================================================================== */
+
+/*
+ * 1. Corrects text resizing oddly in IE6/7 when body font-size is set using em units
+ *    http://clagnut.com/blog/348/#c790
+ * 2. Keeps page centred in all browsers regardless of content height
+ * 3. Prevents iOS text size adjust after orientation change, without disabling user zoom
+ *    www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/
+ */
+
+html {
+    font-size: 100%; /* 1 */
+    overflow-y: scroll; /* 2 */
+    -webkit-text-size-adjust: 100%; /* 3 */
+    -ms-text-size-adjust: 100%; /* 3 */
+}
+
+/*
+ * Addresses margins handled incorrectly in IE6/7
+ */
+
+body {
+    margin: 0;
+}
+
+/* 
+ * Addresses font-family inconsistency between 'textarea' and other form elements.
+ */
+
+body,
+button,
+input,
+select,
+textarea {
+    font-family: sans-serif;
+}
+
+
+/* =============================================================================
+   Links
+   ========================================================================== */
+
+a {
+    color: #00e;
+}
+
+a:visited {
+    color: #551a8b;
+}
+
+/*
+ * Addresses outline displayed oddly in Chrome
+ */
+
+a:focus {
+    outline: 0;
+}
+
+/*
+ * Improves readability when focused and also mouse hovered in all browsers
+ * people.opera.com/patrickl/experiments/keyboard/test
+ */
+
+a:hover,
+a:active {
+    outline: 0;
+}
+
+
+/* =============================================================================
+   Typography
+   ========================================================================== */
+
+/*
+ * Addresses styling not present in IE7/8/9, S5, Chrome
+ */
+
+abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+/*
+ * Addresses style set to 'bolder' in FF3/4, S4/5, Chrome
+*/
+
+b, 
+strong { 
+    font-weight: bold; 
+}
+
+blockquote {
+    margin: 1em 40px;
+}
+
+/*
+ * Addresses styling not present in S5, Chrome
+ */
+
+dfn {
+    font-style: italic;
+}
+
+/*
+ * Addresses styling not present in IE6/7/8/9
+ */
+
+mark {
+    background: #ff0;
+    color: #000;
+}
+
+/*
+ * Corrects font family set oddly in IE6, S4/5, Chrome
+ * en.wikipedia.org/wiki/User:Davidgothberg/Test59
+ */
+
+pre,
+code,
+kbd,
+samp {
+    font-family: monospace, serif;
+    _font-family: 'courier new', monospace;
+    font-size: 1em;
+}
+
+/*
+ * Improves readability of pre-formatted text in all browsers
+ */
+
+pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/*
+ * 1. Addresses CSS quotes not supported in IE6/7
+ * 2. Addresses quote property not supported in S4
+ */
+
+/* 1 */
+
+q {
+    quotes: none;
+}
+
+/* 2 */
+
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+small {
+    font-size: 75%;
+}
+
+/*
+ * Prevents sub and sup affecting line-height in all browsers
+ * gist.github.com/413930
+ */
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+
+/* =============================================================================
+   Lists
+   ========================================================================== */
+
+ul,
+ol {
+    margin: 1em 0;
+    padding: 0 0 0 40px;
+}
+
+dd {
+    margin: 0 0 0 40px;
+}
+
+nav ul,
+nav ol {
+    list-style: none;
+    list-style-image: none;
+}
+
+
+/* =============================================================================
+   Embedded content
+   ========================================================================== */
+
+/*
+ * 1. Removes border when inside 'a' element in IE6/7/8/9, F3
+ * 2. Improves image quality when scaled in IE7
+ *    code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/
+ */
+
+img {
+    border: 0; /* 1 */
+    -ms-interpolation-mode: bicubic; /* 2 */
+}
+
+/*
+ * Corrects overflow displayed oddly in IE9 
+ */
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+
+/* =============================================================================
+   Figures
+   ========================================================================== */
+
+/*
+ * Addresses margin not present in IE6/7/8/9, S5, O11
+ */
+
+figure {
+    margin: 0;
+}
+
+
+/* =============================================================================
+   Forms
+   ========================================================================== */
+
+/*
+ * Corrects margin displayed oddly in IE6/7
+ */
+
+form {
+    margin: 0;
+}
+
+/*
+ * Define consistent margin and padding
+ */
+
+fieldset {
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
+
+/*
+ * 1. Corrects color not being inherited in IE6/7/8/9
+ * 2. Corrects alignment displayed oddly in IE6/7
+ */
+
+legend {
+    border: 0; /* 1 */
+    *margin-left: -7px; /* 2 */
+}
+
+/*
+ * 1. Corrects font size not being inherited in all browsers
+ * 2. Addresses margins set differently in IE6/7, F3/4, S5, Chrome
+ * 3. Improves appearance and consistency in all browsers
+ */
+
+button,
+input,
+select,
+textarea {
+    font-size: 100%; /* 1 */
+    margin: 0; /* 2 */
+    vertical-align: baseline; /* 3 */
+    *vertical-align: middle; /* 3 */
+}
+
+/*
+ * 1. Addresses FF3/4 setting line-height using !important in the UA stylesheet
+ * 2. Corrects inner spacing displayed oddly in IE6/7
+ */
+
+button,
+input {
+    line-height: normal; /* 1 */
+    *overflow: visible;  /* 2 */
+}
+
+/*
+ * Corrects overlap and whitespace issue for buttons and inputs in IE6/7
+ * Known issue: reintroduces inner spacing
+ */
+
+table button,
+table input {
+    *overflow: auto;
+}
+
+/*
+ * 1. Improves usability and consistency of cursor style between image-type 'input' and others
+ * 2. Corrects inability to style clickable 'input' types in iOS
+ */
+
+button,
+html input[type="button"], 
+input[type="reset"], 
+input[type="submit"] {
+    cursor: pointer; /* 1 */
+    -webkit-appearance: button; /* 2 */
+}
+
+/*
+ * 1. Addresses box sizing set to content-box in IE8/9
+ * 2. Addresses excess padding in IE8/9
+ */
+
+input[type="checkbox"],
+input[type="radio"] {
+    box-sizing: border-box; /* 1 */
+    padding: 0; /* 2 */
+}
+
+/*
+ * 1. Addresses appearance set to searchfield in S5, Chrome
+ * 2. Addresses box sizing set to border-box in S5, Chrome (include -moz to future-proof)
+ */
+
+input[type="search"] {
+    -webkit-appearance: textfield; /* 1 */
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box; /* 2 */
+    box-sizing: content-box;
+}
+
+/*
+ * Corrects inner padding displayed oddly in S5, Chrome on OSX
+ */
+
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/*
+ * Corrects inner padding and border displayed oddly in FF3/4
+ * www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/
+ */
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * 1. Removes default vertical scrollbar in IE6/7/8/9
+ * 2. Improves readability and alignment in all browsers
+ */
+
+textarea {
+    overflow: auto; /* 1 */
+    vertical-align: top; /* 2 */
+}
+
+
+/* =============================================================================
+   Tables
+   ========================================================================== */
+
+/* 
+ * Remove most spacing between table cells
+ */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+</style><style id="mnetGetCss" type="text/css">body {
+	background: #FFF;
+	font-family: Georgia, Times New Roman, Times, serif;
+	font-size: 30px;
+	text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+	font-size: 60px;
+	font-weight: normal;
+	margin: 0;
+    font-family: 'Chelsea Market', Georgia, serif;
+    color: #000;
+	line-height: 1;
+}
+
+h2 {
+	font-size: 70px;
+	font-weight: normal;
+	margin: 0;
+	color: #FFB000;
+    font-family: 'Chelsea Market', Georgia, serif;
+	text-transform: lowercase;
+}
+
+h3 {
+	font-size: 40px;
+	font-weight: normal;
+	margin: 0;
+    margin-top: 40px;
+	text-transform: lowercase;
+}
+
+p {
+	width: 960px;
+	margin: 40px auto;
+	color: #000;
+    line-height: 200%;
+}
+
+a, a:visited {
+	color: #000;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ul {
+	list-style: none;
+}
+
+.download {
+	padding: 10px;
+}
+
+pre {
+	font-size: 18px;
+}
+
+blockquote {
+	text-align: left;
+	width: 720px;
+	margin: 10px auto;
+	background: #C5C3DE;
+	border: solid 2px #69697A;
+	padding: 0 40px;
+}
+
+code {
+    background-color: #000;
+	font-style: normal;
+    border-radius: 10px;
+    color: white;
+    padding: 5px 15px;
+    font-family: menlo, monospace;
+}
+
+/*----------------------------------------  BLOCKS */
+
+.scrollblock {
+	position: relative;
+	margin: 0;
+	width: 100%;
+    color: white;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.scrollblock h2 {
+
+}
+
+.block-title { background-color: #FFF; padding-bottom: 50px; }
+.block-title h2 { color: #000; }
+.block-title .meta { font-size: 16px; color: #999; }
+.block-title .meta a { font-size: 16px; color: #333; }
+.block-setup { background-color: #348fd4; }
+.block-setup h2 { color: #06406c; }
+.block-setup h2 a { background: none; padding: 0; font-size: normal; }
+.block-setup a { color: #FFF; font-size: 40px; font-weight: normal;font-style: normal; background-color: #06406c; padding: 10px 15px; border-radius: 10px; text-decoration: none; }
+.block-setup a:hover { text-decoration: underline; }
+.block-create { background-color: #06406c; }
+.block-create h2 { color: #FFF; }
+.block-create p { color: #FFF; }
+.block-create code { background-color: #000; color: #FFF; }
+.block-checkout { background-color: #FFF; }
+.block-checkout h2 { color: #000; }
+.block-trees { background-color: #4c0d09; }
+.block-trees h2 { color: #d3b2af; }
+.block-trees p { color: #d3b2af; }
+.block-trees code { color: #000; background-color: white; }
+.block-add { background-color: #cc4037; }
+.block-add h2, .block-add p { color: #4c0d09; }
+.block-remote { background-color: #ffc19f; }
+.block-remote h2 { color: #cc4037; }
+.block-branching { background-color: #000; }
+.block-branching h2 { color: #FFF; }
+.block-branching p { color: #DDD; }
+.block-branching code { color: #000; background-color: white; }
+.block-merging { background-color: #F2F2F2; }
+.block-merging h2 { color: #666; }
+.block-tagging { background-color: #F2F2F2; }
+.block-tagging h2 { color: #FFF; }
+.block-hints { background-color: #F2F2F2; }
+.block-hints h2 { color: #FFF; }
+.block-resources { background-color: #ffc19f; }
+.block-resources h2 { color: #cc4037; }
+.block-resources h3 { color: #7d1f19; }
+.block-resources ul { list-style: disc; margin: 0; padding: 0; }
+.block-resources ul li a { font-size: 24px; color: #cc4037; }
+.block-tagging { background-color: #348fd4; }
+.block-tagging h2 { color: #06406c; }
+.block-hints { background-color: #06406c; }
+.block-hints h2 { color: #FFF; }
+.block-hints p { color: #FFF; }
+.block-hints code { background-color: #000; color: #FFF; }
+.block-checkout-replace { background-color: #fff8c9; }
+.block-checkout-replace h2 { color: #2d2700; }
+.block-checkout-replace p { color: #615400; }
+.block-comments { background-color: #FFF; padding-bottom: 50px; font-size: 14px; color: #000; }
+.block-comments h2 { color: #000; }
+.block-comments h3 { font-size: 16px; }
+.block-comments #disqus_thread { width: 600px; text-align: left; margin-left: auto; margin-right: auto; }
+
+.tower {
+    display: block;
+    width: 180px;
+    height: 260px;
+    position: absolute;
+    top: 330px;
+    right: 0;
+    background: #FFF url(../img/git-tower.png) no-repeat;
+}
+
+.cheatsheet {
+    display: block;
+    width: 180px;
+    height: 250px;
+    position: absolute;
+    top: 346px;
+    left: 0;
+    background: #FFF url(../img/cheatsheet.png) no-repeat;
+}
+
+.announcement {
+    margin-bottom: 40px;
+}
+
+.announcement img {
+    border-radius: 4px;
+}
+</style></head>
+<body style="">
+    <div class="scrollblock block-title">
+        <h1>GIT - Global Information Tracker</h1>
+        <p>Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</p><br>
+     
+        
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        
+        <img src="img/arrow.png" alt="">
+    </div>
+    <!-- setup -->
+    <a name="setup"></a>
+    <div class="scrollblock block-setup">
+        <h2>setup</h2>
+        <p>Configuring user information used across all local repositories</p>
+        <p>set a name that is identifiable for credit <br>
+            <a href="">git config --global user.name “[firstname lastname]”
+          </a></p>
+        </p>set an email address that will be associated with each history marker<br><br>
+      
+  <a href="">git config --global user.email “[valid-email]”</a>
+      </p>
+      
+        <p>set automatic command line coloring for Git for easy reviewing<br>
+          <a href="">git config --global color.ui auto</a>
+        </p>
+    </div>
+    <a name="create"></a>
+    <div class="scrollblock block-create">
+        <h2>SETUP & INIT</h2>
+        <p>
+            Configuring user information, initialising and cloning repositories <br>
+           Initialise an existing directory as a Git repository<br>
+            <code>git init</code><br>
+          Retrieve an entire repository from a hosted location via URL<br>
+          <code>git clone [url]</code><br>
+          
+          
+        </p>
+    </div>
+    <a name="checkout"></a>
+    <div class="scrollblock block-checkout">
+        <h2>STAGE & SNAPSHOT</h2>
+        <p>Working with snapshots and the Git staging area<br><br>
+            
+            show modified files in working directory, staged for your next commit<br>
+          <code>git status</code><br>
+          add a file as it looks now to your next commit (stage)<br>
+            <code>git add [file]</code><br>
+          unstage a file while retaining the changes in working directory<br>
+          <code>git reset [file]</code><br>
+          diff of what is staged but not yet committed<br>
+          <code>git diff --staged</code><br>
+          commit your staged content as a new commit snapshot<br>
+          <code>git commit -m “[descriptive message]”</code><br>
+        </p>
+    </div>
+    <a name="trees"></a>
+    <div class="scrollblock block-trees">
+        <h2>BRANCH & MERGE</h2>
+        <p>Isolating work in branches, changing context, and integrating changes<br><br>
+     list your branches. a * will appear next to the currently active branch<br>
+          <code>git branch</code><br>
+          create a new branch at the current commit<br>
+          <code>git branch [branch-name]</code><br>
+          switch to another branch and check it out into your working directory<br>
+          <code>
+            git checkout</code><br>
+          merge the specified branch’s history into the current one<br>
+          <code>git merge [branch]</code><br>
+     show all commits in the current branch’s history<br>
+          <code>git log</code>
+          <br>
+          <br>
+          
+        </p>
+        
+    </div>
+    <a name="add"></a>
+    <div class="scrollblock block-add">
+        <h2>REWRITE HISTORY</h2>
+        <p>
+            Rewriting branches, updating commits and clearing history<br><br>
+            
+          apply any commits of current branch ahead of specified one<br>
+            <code>git rebase [branch]</code><br>
+         clear staging area, rewrite working tree from specified commit<br>
+            <code>git reset --hard [commit]"</code><br>
+           
+        </p>
+    
+    <a name="hints"></a>
+    <div class="scrollblock block-hints">
+        <h2>overview</h2>
+        
+            <img src="flow.png">
+    </div>
+ 
+    
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'git-the-simple-guide'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    <a href="http://www.git-tower.com/?source=rd" onclick="recordOutboundLink(this, 'Outbound Links', 'git-tower.com');return false;" class="tower"></a>
+    <a href="files/git_cheat_sheet.pdf" onclick="recordOutboundLink(this, 'Cheat Sheet', 'git-guide');return false;" class="cheatsheet"></a>
+
+
+<iframe scrolling="no" frameborder="0" allowtransparency="true" src="https://platform.twitter.com/widgets/widget_iframe.d7fc2fc075c61f6fa34d79a0cbbf1e34.html?origin=http%3A%2F%2Fup1.github.io" title="Twitter settings iframe" style="display: none;"></iframe><iframe style="display: none;"></iframe><iframe style="display: none;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe"></iframe></body></html>
